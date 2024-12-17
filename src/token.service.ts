@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Token, TokenDocument } from './schema/token.schema';
 import { Model } from 'mongoose';
+import { error } from 'console';
 
 @Injectable()
 export class TokenService {
@@ -35,5 +36,39 @@ export class TokenService {
           token
         }
        }
+  }
+
+  async verifyToken(token:string){
+    try {
+
+      const verified= this.jwtService.verify(token,{
+        secret:"secrettoken@11_45"
+      })
+    
+      if(verified?.userId){
+        const existToken=await this.tokenModel.findOne({userId:verified.userId})
+        if(!existToken){
+          return {
+            message:"token is expiered,please try again",
+            status:HttpStatus.UNAUTHORIZED,
+            error:true
+          }
+        }
+        console.log(verified)
+        return{
+          data:{userId:verified.userId},
+          status:HttpStatus.OK,
+          error:false
+        }
+      }
+
+      
+    } catch (error) {
+      return{
+        message:error?.message,
+        status:HttpStatus.UNAUTHORIZED,
+        error:true
+      }
+    }
   }
 }

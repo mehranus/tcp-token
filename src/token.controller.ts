@@ -12,5 +12,10 @@ export class TokenController {
   createToken(payload:Payload){
     return this.tokenService.createToken(payload)
   }
+  @MessagePattern("verify_token")
+  verifyToken(token:string){
+    console.log(token)
+    return this.tokenService.verifyToken(token)
+  }
 
 }
