@@ -14,7 +14,6 @@ export class TokenController {
   }
   @MessagePattern("verify_token")
   verifyToken(token:string){
-    console.log(token)
     return this.tokenService.verifyToken(token)
   }
 

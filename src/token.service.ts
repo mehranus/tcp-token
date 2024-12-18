@@ -54,7 +54,7 @@ export class TokenService {
             error:true
           }
         }
-        console.log(verified)
+     
         return{
           data:{userId:verified.userId},
           status:HttpStatus.OK,
