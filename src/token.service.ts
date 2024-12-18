@@ -71,4 +71,21 @@ export class TokenService {
       }
     }
   }
+
+  async destroyToken(userId:string){
+    const existToken=await this.tokenModel.findOne({userId})
+    if(!existToken){
+      return {
+        message:"your not login account",
+        status:HttpStatus.UNAUTHORIZED,
+        error:true
+      }
+  }
+  await this.tokenModel.deleteOne({userId})
+  return{
+    message:"user destroy saccsessfully",
+    status:HttpStatus.OK,
+    error:false
+  }
+}
 }

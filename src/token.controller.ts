@@ -16,5 +16,9 @@ export class TokenController {
   verifyToken(token:string){
     return this.tokenService.verifyToken(token)
   }
+  @MessagePattern("destroy_token")
+  destroyToken({userId}:{userId:string}){
+    return this.tokenService.destroyToken(userId)
+  }
 
 }
