@@ -1,16 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import {  TokenModule} from './token.module';
-import { TcpOptions, Transport } from '@nestjs/microservices';
+import { RmqOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice(TokenModule,{
-    transport:Transport.TCP,
+    transport:Transport.RMQ,
     options:{
-      port:4002,
-      host:'0.0.0.0'
+     urls:["amqp://localhost:5672"],
+     queue:"token-queue",
+     queueOptions:{}
     }
-  } as TcpOptions);
+   } as RmqOptions);
   await app.listen();
-  console.log("Token Service Run : localhost:4002")
+  console.log("Token Service Run ")
 }
 bootstrap();
