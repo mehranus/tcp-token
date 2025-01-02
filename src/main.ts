@@ -9,7 +9,7 @@ async function bootstrap() {
       transport: Transport.TCP,
       options: {
         host: "0.0.0.0",
-        port: +process.env.TOKEN_SERVICE_PORT,
+        port: 4002,
       },
     }
   );
