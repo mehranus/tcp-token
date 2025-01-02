@@ -10,6 +10,7 @@ async function bootstrap() {
       host:'0.0.0.0'
     }
   } as TcpOptions);
+  
   await app.listen();
   console.log("Token Service Run : localhost:4002")
 }
